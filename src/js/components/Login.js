@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import * as utils from '../utils';
+import '../../styles/login.css';
 
 class Login extends Component {
   constructor(props) {

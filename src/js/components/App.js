@@ -16,7 +16,7 @@ class App extends Component {
           <Route exact path="/" render={() => !this.isLoggedIn() && <Redirect to="/login"/>}/>
           <Switch>
             <Route path="/login" component={Login}/>
-            <Route exact path="/" component={Home}/>
+            <Route exact path="/" render={() => this.isLoggedIn() && <Home/>}/>
             <Route path="/" render={() => <Redirect to="/"/>}/>
           </Switch>
         </div>

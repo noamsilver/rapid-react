@@ -1,0 +1,41 @@
+.box {
+  width: 400px;
+  text-align: center;
+  margin: auto;
+  background: rgba(25, 230, 168, 0.6);
+  padding: 20px;
+  border-radius: 7px;
+}
+
+.title {
+  font-size: 2.75em;
+  margin-bottom: 20px;
+}
+
+input {
+  display: block;
+  width: 390px;
+  margin-top: 10px;
+  padding: 3px;
+  height: 25px;
+  font-size: 1.15em;
+}
+
+.login.button {
+  width: 200px;
+  height: 50px;
+  line-height: 50px;
+  text-align: center;
+  margin: 30px auto;
+  background: rgba(250, 26, 138, 1);
+  font-size: 2.3em;
+  font-family: monospace;
+  border-radius: 7px;
+  box-shadow: 0 10px 30px 10px rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+}
+
+.error.message {
+  color: red;
+  height: 18px;
+}

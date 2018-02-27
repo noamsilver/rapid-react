@@ -1,0 +1,36 @@
+.content {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+
+.welcome {
+  text-align: center;
+  font-size: 2.75em;
+}
+
+.logout {
+  margin-left: 40px;
+  text-decoration-line: none;
+  opacity: 0.5;
+}
+
+.logout:hover {
+  color: red;
+  text-decoration: underline;
+  opacity: 1;
+}
+
+.drag.image {
+  position: fixed;
+  background-image: url('../images/bullseye.png');
+  background-repeat: no-repeat;
+  width: 198px;
+  height: 321px;
+  object-fit: contain;
+  -webkit-filter: drop-shadow(0px 0px 10px rgb(120, 40, 211));
+  filter: drop-shadow(0px 0px 10px rgb(120, 40, 211));
+}

@@ -1,16 +1,23 @@
 import * as api from './api/apiCalls';
 
-var storage = window.localStorage;
+const storage = window.localStorage;
+let sessionToken = initSessionToken();
 
-export function getSessionToken() {
+function initSessionToken() {
   return JSON.parse(storage.getItem('sessionToken'));
 }
 
-function setSessionToken(sessionToken) {
-  storage.setItem('sessionToken', JSON.stringify(sessionToken));
+export function getSessionToken() {
+  return sessionToken;
+}
+
+function setSessionToken(token) {
+  sessionToken = token;
+  storage.setItem('sessionToken', JSON.stringify(token));
 }
 
 function removeSessionToken() {
+  sessionToken = undefined;
   storage.removeItem('sessionToken');
 }
 
@@ -32,4 +39,11 @@ export function login(username, password) {
 
 export function logout() {
   removeSessionToken();
+}
+
+export function updatePosition(x, y) {
+  sessionToken.position.x = x;
+  sessionToken.position.y = y;
+  api.setPosition(sessionToken.token, x, y);
+  setSessionToken(sessionToken);
 }

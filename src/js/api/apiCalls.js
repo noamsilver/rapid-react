@@ -1,4 +1,4 @@
-let storage = window.localStorage;
+const storage = window.localStorage;
 
 export function createSessionToken(username, password) {
   let usernames = JSON.parse(storage.getItem('usernames'));
@@ -6,7 +6,7 @@ export function createSessionToken(username, password) {
     return null;
   }
   let tokens = JSON.parse(storage.getItem('tokens'));
-  let sessionToken = {};
+  const sessionToken = {};
   sessionToken.token = getRandomInt(100000000000000, 999999999999999);
   while (tokens && tokens[sessionToken.token]) { // Using this blocking 'while' loop as it will probably never actually be looped. This is because the random generator has a uniform distribution.
     sessionToken.token = getRandomInt(100000000000000, 999999999999999);
@@ -14,6 +14,7 @@ export function createSessionToken(username, password) {
   sessionToken.createTime = Date.now() || new Date().getTime();
   sessionToken.username = username;
   sessionToken.password = password;
+  sessionToken.position = { x: 0, y: 0 };
   if (!tokens) {
     tokens = {};
   }
@@ -24,7 +25,7 @@ export function createSessionToken(username, password) {
   }
   usernames[username] = sessionToken.token;
   storage.setItem('usernames', JSON.stringify(usernames));
-
+  delete sessionToken.password;
   return sessionToken;
 }
 
@@ -33,11 +34,29 @@ function getRandomInt(min, max) {
 }
 
 export function getToken(username, password) {
-  let usernames = JSON.parse(storage.getItem('usernames'));
+  const usernames = JSON.parse(storage.getItem('usernames'));
   if (!usernames || !usernames[username]) {
     return null;
   }
-  let tokens = JSON.parse(storage.getItem('tokens'));
-  let token = tokens[usernames[username]];
-  return token.password === password ? token : null;
+  const tokens = JSON.parse(storage.getItem('tokens'));
+  const token = tokens[usernames[username]];
+  if (token.password === password) {
+    delete token.password;
+    return token;
+  } else {
+    return null;
+  }
+}
+
+export function setPosition(token, x, y) {
+  const tokens = JSON.parse(storage.getItem('tokens'));
+  if (tokens && tokens[token]) {
+    tokens[token].position = { x, y };
+    storage.setItem('tokens', JSON.stringify(tokens)); 
+  }
+}
+
+export function getPosition(token) {
+  const tokens = JSON.parse(storage.getItem('tokens'));
+  return tokens && tokens[token] ? tokens[token].position : null;
 }
