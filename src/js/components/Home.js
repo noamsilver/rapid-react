@@ -43,6 +43,7 @@ class Home extends Component {
 
   mouseUp(event) {
     event.preventDefault();
+    event.stopPropagation();
     if (this.state.clickPosition) {
       const x = this.state.position.x + this.state.dx;
       const y = this.state.position.y + this.state.dy;
