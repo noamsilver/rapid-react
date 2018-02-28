@@ -1,10 +1,15 @@
 import * as api from './api/apiCalls';
 
 const storage = window.localStorage;
-let sessionToken = initSessionToken();
+let sessionToken;
+syncSessionToken();
 
-function initSessionToken() {
-  return JSON.parse(storage.getItem('sessionToken'));
+function syncSessionToken() {
+  let token = JSON.parse(storage.getItem('sessionToken'));
+  if (token) {
+    token = api.getToken(token.token);
+  }
+  setSessionToken(token);
 }
 
 export function getSessionToken() {
@@ -26,7 +31,7 @@ function createAccount(username, password) {
 }
 
 export function login(username, password) {
-  let token = api.getToken(username, password);
+  let token = api.getTokenCredentials(username, password);
   if (!token) { // Auto create account if not found (for simplicity)
     token = createAccount(username, password);
   }

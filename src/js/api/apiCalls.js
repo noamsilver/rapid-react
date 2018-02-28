@@ -33,7 +33,7 @@ function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-export function getToken(username, password) {
+export function getTokenCredentials(username, password) {
   const usernames = JSON.parse(storage.getItem('usernames'));
   if (!usernames || !usernames[username]) {
     return null;
@@ -43,6 +43,17 @@ export function getToken(username, password) {
   if (token.password === password) {
     delete token.password;
     return token;
+  } else {
+    return null;
+  }
+}
+
+export function getToken(token) {
+  const tokens = JSON.parse(storage.getItem('tokens'));
+  const tokenOb = tokens[token];
+  if (tokenOb) {
+    delete tokenOb.password;
+    return tokenOb;
   } else {
     return null;
   }
