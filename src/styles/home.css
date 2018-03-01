@@ -12,10 +12,16 @@
   font-size: 2.75em;
 }
 
-.logout {
+.username {
   margin-left: 40px;
+  font-size: 0.45em;
+}
+
+.logout {
+  margin-left: 20px;
   text-decoration-line: none;
   opacity: 0.5;
+  font-size: 0.45em;
 }
 
 .logout:hover {
